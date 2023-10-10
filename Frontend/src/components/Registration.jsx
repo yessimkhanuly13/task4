@@ -1,12 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 
-function Registration() {
+function Registration({toggleRegistration}) {
+    const [user, setUser] = useState({
+        username:"",
+        password:"",
+        name:""
+    });
+    
+    const handleChange = (e) =>{
+        const {name, value} = e.target;
+        setUser({...user, [name]:value});
+        console.log(user);
+    }
+
+    const handleRegistration = () =>{
+        console.log('here');
+        const { username, password, name } = user;
+
+        axios.post('http://localhost:5000/auth/registration', {username, password, name})
+            .then((res)=>{
+                console.log('Success! ' + res);
+                toggleRegistration();
+            })
+            .catch((e)=>{
+                console.log(e);
+            })
+    }
+
   return (
     <div className='flex flex-col m-2 border p-8 m-2'>
-        <input className='mb-1' type='text' placeholder='name'/>
-        <input className='mb-1' type='text' placeholder='email'/>   
-        <input className='mb-1' type='password' placeholder='password'/>
-        <button className='border hover:bg-lime-600'>Submit</button>
+        <input onChange={handleChange} className='mb-1' type='text' placeholder='name' name="name"/>
+        <input onChange={handleChange} className='mb-1' type='text' placeholder='email' name="username"/>   
+        <input onChange={handleChange} className='mb-1' type='password' placeholder='password' name="password"/>
+        <button onClick={handleRegistration} className='border hover:bg-lime-600'>Submit</button>
     </div>
   )
 }

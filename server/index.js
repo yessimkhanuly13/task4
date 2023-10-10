@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRouter = require('./authRouter')
 require('dotenv').config();
+const cors = require('cors');
 
 const password = process.env.DATABASE_PASS;
 
@@ -9,6 +10,7 @@ const PORT = 5000;
 
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use("/auth", authRouter);
 

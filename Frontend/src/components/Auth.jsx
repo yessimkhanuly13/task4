@@ -12,7 +12,7 @@ function Auth() {
   return (
     <div className='flex justify-center items-center w-screen h-screen flex-col'>
         {!registration && (<Login toggleRegistration={toggleRegistration}/>)}
-        {registration && (<Registration/>)}
+        {registration && (<Registration toggleRegistration={toggleRegistration}/>)}
     </div>
   )
 }
