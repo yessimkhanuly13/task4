@@ -1,4 +1,4 @@
-const User = require('./models/User');
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const {validationResult} =  require('express-validator');
 
@@ -46,6 +46,9 @@ class authController {
                 return res.status(400).json({message: "User is blocked"});
             }
 
+            user.lastLogDate = Date.now();
+            await user.save();
+
             return res.json({user});
 
         }catch(e){
@@ -56,7 +59,7 @@ class authController {
 
     async getUsers(req, res){
         try{
-            const users = await User.find({blocked:false}).select('-password');
+            const users = await User.find(/*{blocked:false}*/).select('-password');
             res.json(users);
         }catch(e){
             console.log(e);

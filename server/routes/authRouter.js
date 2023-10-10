@@ -1,7 +1,8 @@
 const Router = require('express');
-const authController = require('./authController');
+const authController = require('../controllers/authController');
 const router = new Router();
 const {check} = require('express-validator');
+const userController = require('../controllers/userController');
 
 router.post('/registration',[
     check('username', 'Login can\'t be empty!').notEmpty(),
@@ -10,5 +11,7 @@ router.post('/registration',[
 ], authController.registration)
 router.post('/login', authController.login);
 router.get('/users', authController.getUsers);
+router.put('/users', userController.userBlock );
+router.delete('/users', userController.userDelete);
 
 module.exports = router;
