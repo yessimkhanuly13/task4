@@ -19,8 +19,9 @@ function Registration({toggleRegistration}) {
         const { username, password, name } = user;
 
         axios.post('http://localhost:5000/auth/registration', {username, password, name})
-            .then((res)=>{
-                console.log('Success! ' + res);
+            .then((responce)=>{
+                console.log('Success!');
+                console.log(responce.data)
                 toggleRegistration();
             })
             .catch((e)=>{

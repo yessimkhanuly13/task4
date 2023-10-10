@@ -42,6 +42,10 @@ class authController {
                 return res.status(400).json({message:"Password isn't correct!"});
             }
 
+            if(user.blocked){
+                return res.status(400).json({message: "User is blocked"});
+            }
+
             return res.json({user});
 
         }catch(e){
