@@ -56,7 +56,7 @@ class authController {
 
     async getUsers(req, res){
         try{
-            const users = await User.find();
+            const users = await User.find({blocked:false}).select('-password');
             res.json(users);
         }catch(e){
             console.log(e);
