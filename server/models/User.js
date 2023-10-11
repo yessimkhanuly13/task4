@@ -6,7 +6,7 @@ const User = new Schema({
     date: {type: String},
     name: {type: String, required: true},
     lastLogDate: {type: String},
-    blocked: {type: Boolean}
+    blocked: {type: String}
 })
 
 module.exports = model('User', User);

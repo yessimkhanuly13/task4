@@ -26,40 +26,65 @@ function Main() {
       return date.toLocaleString();
     }
 
+    const handleUserDelete = () =>{
+      selectedUsers.forEach((userId)=>{
+          axios.delete('http://localhost:5000/auth/users', {userId})
+          .then((res)=>{
+              console.log(res.data);
+              const updatedUsers = users.filter((user)=> user._id !== userId);
+              setUsers(updatedUsers);
+          })
+          .catch((e)=>console.log(e));
+      })
+
+      setSelectedUsers([]);
+    }
+
+
+    
+
   return (
-    <div className='w-full text-center'>
-         <table>
-        <thead>
+    <div className='w-full text-center flex-col justify-center items-center h-screen'>
+      <div>
+        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={()=>handleUserDelete()}>Delete</button>
+        <button className='border rounded p-2 m-2 hover:bg-gray-500'>Block</button>
+        <button className='border rounded p-2 m-2 hover:bg-gray-500'>Unblock</button>
+      </div>  
+      <div className='justify-center items-center flex mt-4'>
+      <table className='border'>
+        <thead className='border'>
           <tr>
-            <th>Select</th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Last Login Time</th>
-            <th>Registration Time</th>
-            <th>Status</th>
+            <th className='border p-2 m-1'>Select</th>
+            <th className='border p-2 m-1'>ID</th>
+            <th className='border p-2 m-1'>Name</th>
+            <th className='border p-2 m-1'>Email</th>
+            <th className='border p-2 m-1'>Last Login Time</th>
+            <th className='border p-2 m-1'>Registration Time</th>
+            <th className='border p-2 m-1'>Status</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>
-                <input
+              <td className='border p-2 m-1'>
+                <input 
+                  className='cursor-pointer'
                   type="checkbox"
                   checked={selectedUsers.includes(user._id)}
                   onChange={() => handleUserSelection(user._id)}
                 />
               </td>
-              <td>{user._id}</td>
-              <td>{user.name}</td>
-              <td>{user.username}</td>
-              <td>{unixToLocaleString(user.lastLogDate)}</td>
-              <td>{unixToLocaleString(user.date)}</td>
-              <td>{user.blocked}</td>
+              <td className='border p-2 m-1'>{user._id}</td>
+              <td className='border p-2 m-1'>{user.name}</td>
+              <td className='border p-2 m-1'>{user.username}</td>
+              <td className='border p-2 m-1'>{unixToLocaleString(user.lastLogDate)}</td>
+              <td className='border p-2 m-1'>{unixToLocaleString(user.date)}</td>
+              <td className='border p-2 m-1'>{user.blocked}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }
