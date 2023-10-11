@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { CurrentUser } from '../App';
+import Navbar from './Navbar';
 
 function Main({setAuth}) {
     const [users, setUsers] = useState([]);
@@ -92,11 +93,8 @@ function Main({setAuth}) {
 
   return (
     <div className='w-full text-center flex-col justify-center items-center h-screen'>
-      <div>
-        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={handleUserDelete}>Delete</button>
-        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={handleBlock}>Block</button>
-        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={handleUnblock}>Unblock</button>
-      </div>  
+      
+      <Navbar handleBlock={handleBlock} handleUnblock={handleUnblock} handleUserDelete={handleUserDelete} setAuth={setAuth}/> 
       <div className='justify-center items-center flex mt-4'>
       <table className='border'>
         <thead className='border'>
