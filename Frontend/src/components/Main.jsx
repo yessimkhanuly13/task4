@@ -28,15 +28,14 @@ function Main() {
 
     const handleUserDelete = () =>{
       selectedUsers.forEach((userId)=>{
-          axios.delete('http://localhost:5000/auth/users', {userId})
-          .then((res)=>{
-              console.log(res.data);
-              const updatedUsers = users.filter((user)=> user._id !== userId);
-              setUsers(updatedUsers);
-          })
-          .catch((e)=>console.log(e));
+        axios.delete(`http://localhost:5000/auth/users/${userId}`)
+        .then((res)=>{
+            console.log(res.data);
+            const updatedUsers = users.filter((user)=> user._id !== userId);
+            setUsers(updatedUsers);
+        })
+        .catch((e)=>console.log(e))
       })
-
       setSelectedUsers([]);
     }
 

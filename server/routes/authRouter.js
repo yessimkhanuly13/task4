@@ -13,6 +13,6 @@ router.post('/login', authController.login);
 router.get('/users', authController.getUsers);
 router.put('/users', userController.userBlock );
 router.put('/users', userController.userUnblock);
-router.delete('/users', userController.userDelete);
+router.delete('/users/:id', userController.userDelete);
 
 module.exports = router;
