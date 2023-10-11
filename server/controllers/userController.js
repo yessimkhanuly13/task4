@@ -4,8 +4,8 @@ const User = require('../models/User');
 class userController {
     async userBlock(req, res){
         try{
-            const {_id} = req.body;
-            const updatedUser = await User.findByIdAndUpdate(_id, {blocked: "Blocked"}, {new: true});
+            const userId = req.params.id;
+            const updatedUser = await User.findByIdAndUpdate(userId, {blocked: "Blocked"}, {new: true});
             console.log(updatedUser);
             res.json({message:'User updated!'})
         }catch(e){
@@ -24,8 +24,8 @@ class userController {
 
     async userUnblock(req, res){
         try{
-            const {_id} = req.body;
-            const updatedUser = await User.findByIdAndUpdate(_id, {blocked: "Active"}, {new: true});
+            const userId = req.params.id;
+            const updatedUser = await User.findByIdAndUpdate(userId, {blocked: "Active"}, {new: true});
             console.log(updatedUser);
             res.json({message:'User updated!'})
         }catch(e){

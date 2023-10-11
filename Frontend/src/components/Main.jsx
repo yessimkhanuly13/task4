@@ -9,6 +9,7 @@ function Main() {
         axios.get('http://localhost:5000/auth/users')
         .then((response)=>{
           setUsers(response.data);
+          console.log(response.data);
         })
         .catch((e)=>console.log(e));
     },[])
@@ -39,15 +40,50 @@ function Main() {
       setSelectedUsers([]);
     }
 
+    const handleBlock = () =>{
+      selectedUsers.forEach((userId)=>{
+          axios.put(`http://localhost:5000/auth/users/${userId}`)
+          .then((res)=>{
+            console.log(res.data);
+            const updatedUsers = users.map((user)=>{
+              if(user._id === userId){
+                user.blocked = 'Blocked'
+              }
+              return user;
+            });
 
+            setUsers(updatedUsers);
+          })
+          .catch((e)=>console.log(e))
+      })
+    }
+
+    const handleUnblock = () =>{
+      selectedUsers.forEach((userId)=>{
+          axios.put(`http://localhost:5000/auth/users/${userId}`)
+          .then((res)=>{
+            console.log(res.data);
+            const updatedUsers = users.map((user)=>{
+              console.log(user);
+              if(user._id === userId){
+                user.blocked = 'Active';
+              }
+              return user;
+            });
+
+            setUsers(updatedUsers);
+          })
+          .catch((e)=>console.log(e))
+      })
+    }
     
 
   return (
     <div className='w-full text-center flex-col justify-center items-center h-screen'>
       <div>
-        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={()=>handleUserDelete()}>Delete</button>
-        <button className='border rounded p-2 m-2 hover:bg-gray-500'>Block</button>
-        <button className='border rounded p-2 m-2 hover:bg-gray-500'>Unblock</button>
+        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={handleUserDelete}>Delete</button>
+        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={handleBlock}>Block</button>
+        <button className='border rounded p-2 m-2 hover:bg-gray-500' onClick={handleUnblock}>Unblock</button>
       </div>  
       <div className='justify-center items-center flex mt-4'>
       <table className='border'>
