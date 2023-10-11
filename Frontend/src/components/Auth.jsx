@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Login from './Login'
 import Registration from './Registration';
 
-function Auth() {
+function Auth({setAuth}) {
     const [registration, setRegistration] = useState(false);
 
     const toggleRegistration = () =>{
@@ -11,7 +11,7 @@ function Auth() {
 
   return (
     <div className='flex justify-center items-center w-screen h-screen flex-col'>
-        {!registration && (<Login toggleRegistration={toggleRegistration}/>)}
+        {!registration && (<Login toggleRegistration={toggleRegistration} setAuth={setAuth}/>)}
         {registration && (<Registration toggleRegistration={toggleRegistration}/>)}
     </div>
   )

@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 
-function Login({toggleRegistration}) {
+function Login({toggleRegistration, setAuth}) {
     const [user, setUser] = useState({
         username: "",
-        password: ""
+        password: "",
     })
+
+    const [logError, setLogError] = useState('');
 
     const handleChange = (e) =>{
         const {name, value} = e.target;
@@ -18,12 +20,20 @@ function Login({toggleRegistration}) {
         axios.post('http://localhost:5000/auth/login', {username, password})
             .then((responce)=>{
                 console.log(responce.data)
+                setLogError("");
+                setAuth(false);
             })
-            .catch((e)=>console.log(e));
+            .catch((e)=>{
+                if(e.response){
+                    setLogError(e.response.data.message);
+                }
+                setUser({});
+            });
     }
   return (
     <div>
         <div className='flex flex-col m-2 border p-8 m-2'>
+            {logError &&  (<p className='text-rose-800'>{logError}</p>)}
             <input onChange={handleChange} className='mb-1' type="text" placeholder='email' name='username'/>
             <input onChange={handleChange} className='mb-1' type="password" placeholder='password' name='password' />
             <button onClick={handleLogin} className='border hover:bg-lime-600 '>Login</button>
