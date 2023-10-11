@@ -18,7 +18,7 @@ class authController {
             const hashPassword = bcrypt.hashSync(password, 5);
             const date = Date.now();
 
-            const user = new User({username, password: hashPassword, name, date: date, lastLogDate: date, blocked: false});
+            const user = new User({username, password: hashPassword, name, date: date, lastLogDate: date, blocked: "Active"});
 
             await user.save();
             return res.json({message: "User is created!"});
@@ -42,7 +42,7 @@ class authController {
                 return res.status(400).json({message:"Password isn't correct!"});
             }
 
-            if(user.blocked){
+            if(user.blocked === "Blocked"){
                 return res.status(400).json({message: "User is blocked"});
             }
 
@@ -59,7 +59,7 @@ class authController {
 
     async getUsers(req, res){
         try{
-            const users = await User.find(/*{blocked:false}*/).select('-password');
+            const users = await User.find().select('-password');
             res.json(users);
         }catch(e){
             console.log(e);
