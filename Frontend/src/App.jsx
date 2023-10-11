@@ -1,14 +1,21 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import './App.css'
 import Auth from './components/Auth'
 import Main from './components/Main'
 
+export const CurrentUser = createContext();
+
 function App() {
   const [auth, setAuth] = useState(true);
+  const [currUserId, setCurrUserId] = useState('');
+  
+  
   return (
     <>
-      {auth && (<Auth setAuth={setAuth}/>)}
-      {!auth && (<Main/>)}
+      <CurrentUser.Provider value={{currUserId, setCurrUserId}}>
+          {auth && (<Auth setAuth={setAuth}/>)}
+          {!auth && (<Main setAuth={setAuth}/>)}
+      </CurrentUser.Provider>
     </>
   )
 }

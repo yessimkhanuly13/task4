@@ -1,9 +1,13 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { CurrentUser } from '../App';
 
-function Main() {
+function Main({setAuth}) {
     const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
+
+    const {currUserId} = useContext(CurrentUser);
+
 
     useEffect(()=>{
         axios.get('http://localhost:5000/auth/users')
@@ -34,6 +38,9 @@ function Main() {
             console.log(res.data);
             const updatedUsers = users.filter((user)=> user._id !== userId);
             setUsers(updatedUsers);
+            if(userId === currUserId){
+              setAuth(true);
+            }
         })
         .catch((e)=>console.log(e))
       })
@@ -48,6 +55,10 @@ function Main() {
             const updatedUsers = users.map((user)=>{
               if(user._id === userId){
                 user.blocked = 'Blocked'
+              }
+
+              if(user.blocked === 'Blocked' && user._id === currUserId){
+                setAuth(true);
               }
               return user;
             });
@@ -68,6 +79,7 @@ function Main() {
               if(user._id === userId){
                 user.blocked = 'Active';
               }
+              
               return user;
             });
 
@@ -88,8 +100,8 @@ function Main() {
       <div className='justify-center items-center flex mt-4'>
       <table className='border'>
         <thead className='border'>
-          <tr>
-            <th className='border p-2 m-1'>Select</th>
+          <tr className='bg-slate-50'>
+            <th onClick={()=>console.log(currUserId)} className='border p-2 m-1'>Select</th>
             <th className='border p-2 m-1'>ID</th>
             <th className='border p-2 m-1'>Name</th>
             <th className='border p-2 m-1'>Email</th>
@@ -100,7 +112,7 @@ function Main() {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr className='odd:bg-white even:bg-slate-100' key={user._id}>
               <td className='border p-2 m-1'>
                 <input 
                   className='cursor-pointer'
