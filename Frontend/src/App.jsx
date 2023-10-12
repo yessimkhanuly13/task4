@@ -9,10 +9,6 @@ function App() {
   const [auth, setAuth] = useState(true);
   const [currUserId, setCurrUserId] = useState('');
   
-  useEffect(()=>{
-    console.log(import.meta.env.VITE_SERVER);
-  },[])
-  
   return (
     <>
       <CurrentUser.Provider value={{currUserId, setCurrUserId}}>
