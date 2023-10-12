@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const authRouter = require('./routes/authRouter')
+const router = require('./routes/router')
 require('dotenv').config();
 const cors = require('cors');
 
@@ -12,7 +12,7 @@ const PORT = 5000;
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/auth", authRouter);
+app.use("/auth", router);
 
 
 const start = async() =>{

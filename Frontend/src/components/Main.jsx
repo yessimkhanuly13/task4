@@ -116,7 +116,7 @@ function Main({setAuth}) {
       <div className='flex justify-end mr-10'>Hello, {currentUser}! <span onClick={()=>setAuth(true)} className='ml-3 cursor-pointer text-red-500 underline'>Logout</span></div>
       <Toolbar handleBlock={handleBlock} handleUnblock={handleUnblock} handleUserDelete={handleUserDelete}/> 
       <div className='flex'>
-      <table className='border w-full ml-10 mr-10'>
+      <table className='border w-full ml-10 mr-10 mb-4'>
         <thead className='border'>
           <tr className='bg-slate-50'>
             <th className='border p-2'><input 
