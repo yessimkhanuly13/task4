@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import './App.css'
 import Auth from './components/Auth'
 import Main from './components/Main'
@@ -9,6 +9,9 @@ function App() {
   const [auth, setAuth] = useState(true);
   const [currUserId, setCurrUserId] = useState('');
   
+  useEffect(()=>{
+    console.log(import.meta.env.VITE_SERVER);
+  },[])
   
   return (
     <>

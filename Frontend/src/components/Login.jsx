@@ -22,7 +22,7 @@ function Login({toggleRegistration, setAuth}) {
         setLogError("");
         const {username, password} = user;
 
-        axios.post('http://localhost:5000/auth/login', {username, password})
+        axios.post(import.meta.env.VITE_SERVER + "/login", {username, password})
             .then((responce)=>{
                 console.log(responce.data.user._id);
                 setLogError("");

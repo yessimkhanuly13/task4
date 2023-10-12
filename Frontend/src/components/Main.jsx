@@ -13,7 +13,7 @@ function Main({setAuth}) {
 
 
     useEffect(()=>{
-        axios.get('http://localhost:5000/auth/users')
+        axios.get(import.meta.env.VITE_SERVER + "/users")
         .then((response)=>{
           setUsers(response.data);
           console.log(response.data);
@@ -43,7 +43,7 @@ function Main({setAuth}) {
 
     const handleUserDelete = () =>{
       selectedUsers.forEach((userId)=>{
-        axios.delete(`http://localhost:5000/auth/users/${userId}`)
+        axios.delete(import.meta.env.VITE_SERVER + `/users/${userId}`)
         .then((res)=>{
             console.log(res.data);
             const updatedUsers = users.filter((user)=> user._id !== userId);
@@ -59,7 +59,7 @@ function Main({setAuth}) {
 
     const handleBlock = () =>{
       selectedUsers.forEach((userId)=>{
-          axios.put(`http://localhost:5000/auth/users/block/${userId}`)
+          axios.put(import.meta.env.VITE_SERVER + `/users/block/${userId}`)
           .then((res)=>{
             console.log(res.data);
             const updatedUsers = users.map((user)=>{
@@ -81,7 +81,7 @@ function Main({setAuth}) {
 
     const handleUnblock = () =>{
       selectedUsers.forEach((userId)=>{
-          axios.put(`http://localhost:5000/auth/users/unblock/${userId}`)
+          axios.put(import.meta.env.VITE_SERVER + `/users/unblock/${userId}`)
           .then((res)=>{
             console.log(res.data);
             const updatedUsers = users.map((user)=>{

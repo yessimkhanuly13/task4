@@ -19,7 +19,7 @@ function Registration({toggleRegistration}) {
         console.log('here');
         const { username, password, name } = user;
 
-        axios.post('http://localhost:5000/auth/registration', {username, password, name})
+        axios.post(import.meta.env.VITE_SERVER + "/registration", {username, password, name})
             .then((responce)=>{
                 console.log('Success!');
                 console.log(responce.data)
