@@ -7,6 +7,7 @@ function Registration({toggleRegistration}) {
         password:"",
         name:""
     });
+    const [logError, setLogError] = useState('');
     
     const handleChange = (e) =>{
         const {name, value} = e.target;
@@ -26,16 +27,25 @@ function Registration({toggleRegistration}) {
             })
             .catch((e)=>{
                 console.log(e);
+                if(e.response){
+                    setLogError(e.response.data.message);
+                }
             })
     }
 
   return (
+    <>
     <div className='flex flex-col m-2 border p-8 m-2'>
+        {logError &&  (<p className='text-rose-800'>{logError}</p>)}
         <input onChange={handleChange} className='mb-1' type='text' placeholder='name' name="name"/>
         <input onChange={handleChange} className='mb-1' type='text' placeholder='email' name="username"/>   
         <input onChange={handleChange} className='mb-1' type='password' placeholder='password' name="password"/>
-        <button onClick={handleRegistration} className='border hover:bg-lime-600'>Submit</button>
+        <button onClick={handleRegistration} className='border rounded hover:bg-lime-600'>Submit</button>
     </div>
+    <div className='flex'>
+        <div onClick={toggleRegistration} className='ml-1 cursor-pointer hover:text-lime-600'>Go back</div>
+        </div>
+    </>
   )
 }
 
