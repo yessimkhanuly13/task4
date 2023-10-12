@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
 import './App.css'
 import Auth from './components/Auth'
 import Main from './components/Main'

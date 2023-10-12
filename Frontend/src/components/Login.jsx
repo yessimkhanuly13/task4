@@ -22,7 +22,7 @@ function Login({toggleRegistration, setAuth}) {
         setLogError("");
         const {username, password} = user;
 
-        axios.post(import.meta.env.VITE_SERVER + "/login", {username, password})
+        axios.post("https://task-4-jmbn.onrender.com/auth/login", {username, password})
             .then((responce)=>{
                 console.log(responce.data.user._id);
                 setLogError("");

@@ -13,13 +13,14 @@ function Registration({toggleRegistration}) {
         const {name, value} = e.target;
         setUser({...user, [name]:value});
         console.log(user);
+        console.log(import.meta.env.VITE_SERVER)
     }
 
     const handleRegistration = () =>{
         console.log('here');
         const { username, password, name } = user;
 
-        axios.post(import.meta.env.VITE_SERVER + "/registration", {username, password, name})
+        axios.post("https://task-4-jmbn.onrender.com/auth/registration", {username, password, name})
             .then((responce)=>{
                 console.log('Success!');
                 console.log(responce.data)
